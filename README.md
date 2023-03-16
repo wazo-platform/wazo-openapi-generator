@@ -13,53 +13,7 @@ This tool generates OpenAPI specifications from multiple sources:
 
 * Linux
 * Python3.7 or later
-* Python code (using Flask-RESTful and Marshmallow) following the requirements below:
-  * Each field of the Marshmallow schemas must have a description. Example:
-    ```python
-    username = fields.String(validate=Regexp(USERNAME_REGEX), allow_none=True, description="name of the user")
-    ```
-
-  * ```load_default``` parameter must be a callable. Example: 
-    ```python
-    my_field = fields.Nested(MySchema, load_default=lambda : MySchema().load({}))
-    ```
-    More details: https://apispec.readthedocs.io/en/latest/api_ext.html#module-apispec.ext.marshmallow
-
-  * All Marshmallow schemas must be defined in files named schema.py
-
-  * For each Flask-RESTful resource, a decorator must be added, this decorator pointing to a YAML describing the resource. Example:
-    ```python
-    @from_file("my_package/path/to/user.yml")
-    class User(Resource):
-    ```
-  * For each Flask-RESTful resource, a YAML file containing the OpenAPI specs. Exemple:
-    ```yaml
-    ---
-    get:
-    operationId: get_user
-    summary: Retrieve a user
-    [...]
-    responses:
-        '200':
-          description: User details
-          schema:
-            UserSchema # the name of the Python Marshmallow schema class
-    ```
-  * OpenAPI components must be referenced by ID, not full path. Example:
-    ```yaml
-    parameters:
-      - tenantuuid # instead of $ref: '#/parameters/tenantuuid'
-    ```
-    ```yaml
-    schema:
-      - UserSchema # instead of $ref: '#/responses/UserSchema'
-    ```
-    ```yaml
-    responses:
-      '204':
-         ResourceUpdated # instead of $ref: '#/responses/ResourceUpdated'
-    ```
-    More details: https://github.com/dpgaspar/Flask-AppBuilder/issues/1055 https://apispec.readthedocs.io/en/stable/upgrading.html#components-must-be-referenced-by-id-not-full-path
+* Python code using Flask-RESTful and Marshmallow
 
 
 ## Run
