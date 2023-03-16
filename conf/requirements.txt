@@ -1,0 +1,8 @@
+apispec==6.0.2
+apispec-webframeworks==0.5.2
+marshmallow==3.19.0
+pyyaml==6
+flasgger==0.9.5
+apispec_fromfile==1.0.3 # Used to read openapi spec stored in yml file
+apispec_flask_restful==0.2 # Includes a path helper that allows to pass a Flask-RESTful resource object to path
+
